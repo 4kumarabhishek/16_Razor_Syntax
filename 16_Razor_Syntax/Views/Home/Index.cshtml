@@ -1,0 +1,94 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+@{
+    string msg = "Hello world";
+    string msg2 = "<b> Good morning </b>";  //razor expressions are HTML encoded-> the HTML code behaves as plain text
+
+    string myvar = "DateTime";
+
+    string[] colors = { "red", "blue", "green" };
+    string[] fruits = { "apple", "banana", "guava", "orange" };
+}
+
+@*use of helper methods to avoid repitition for same tasks*@
+
+@helper showList(string[] list) { 
+        <ul>
+            @foreach(string item in list)
+    {
+        <li>@item</li>
+    }
+        </ul>
+    }
+
+<h2>Razor Syntax</h2>
+<hr />
+
+<!--Implicit code expression-->
+Today is @DateTime.Now.ToShortDateString()
+<br />
+
+@msg
+
+<!--Explicit code expression (use of round brackets)-->
+Multiplication of 4*5 = @(4*5)
+<br />
+
+To display current date @(myvar).Now is used
+
+
+<!--Escaping code delilmiter-->
+Meet me @@7pm
+<br />
+
+My mail id is abhishek@gmail.com
+<br />
+
+
+<!--If - else -->
+@if (DateTime.IsLeapYear(2018))
+{
+    <p>Leap year</p>
+}
+else
+{
+    <p>Not leap year</p>
+}
+
+<br />
+
+@foreach (string c in colors)
+{
+    <li>@c</li>
+}
+
+<!--Use of plain text inside RAZOR---------------------->
+<!--If - else -->
+@if (DateTime.IsLeapYear(2018))
+{
+    @:Leap year   
+    //we can use both @: and <text> tags for this purpose if we don't want to use any other HTML tags
+}
+else
+{
+    <text>Not leap year</text>
+    //we can use both @: and <text> tags for this purpose if we don't want to use any other HTML tags
+}
+
+<br />
+
+@foreach (string c in colors)
+{
+    <li>@c</li>
+}
+
+<!--Prevent HTML encoding-->
+@Html.Raw(msg2);
+
+@*Calling helper method example*@
+@showList(fruits)
+<br />
+
+@showList(colors)
